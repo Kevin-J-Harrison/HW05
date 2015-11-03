@@ -61,10 +61,10 @@ public:
         Polynomial result;
 
         for(int i = 0; i < this->poly.size(); ++i){
-            for(int x = 0; x < other->poly.size(); ++x){
-                T first = this[i].first * other[x].first;
-                int second = this[i].second + other[x].second;
-                result.pushback(first, second);
+            for(int x = 0; x < other.poly.size(); ++x){
+                T first = this->poly[i].first * other.poly[x].first;
+                int second = this->poly[i].second + other.poly[x].second;
+                result.poly.insert(first, second);
             }
         }
         result();
