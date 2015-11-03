@@ -59,22 +59,20 @@ public:
      */
     Polynomial operator* (const Polynomial & other) const {
         Polynomial result;
-
         for(int i = 0; i < this->poly.size(); ++i){
             for(int x = 0; x < other.poly.size(); ++x){
                 T first = this->poly[i].first * other.poly[x].first;
                 int second = this->poly[i].second + other.poly[x].second;
-                result.poly.insert(first, second);
+                result.poly.push_back(make_pair(first , second));
             }
         }
-        result();
-        for(int n = 0; n < result->poly.size(); ++n) {
-            for(int m = n+1; m < result->poly.size(); ++m) {
-                if(result[n].second == result[m].second){
-                    int one = result[n].fisrt;
-                    int two = result[m].first;
-                    result[n].first = one + two;
-                    result.erase(result.begin() + m);
+
+
+        for(int n = 0; n < result.poly.size(); ++n) {
+            for(int m = n+1; m < result.poly.size(); ++m) {
+                if(result.poly[n].second == result.poly[m].second){
+                    result.poly[n].first += result.poly[m].first;
+                    result.poly.erase(result.poly.begin() + m);
                 }
             }
         }
