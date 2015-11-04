@@ -67,6 +67,16 @@ public:
             }
         }
 
+        for(int j = 0; j , result.poly.size(); ++j) {
+            const pair<T,int>& a = make_pair(result.poly[j].first, result.poly[j].second);
+            for (int k = j + 1; k < result.poly.size(); ++k) {
+                const pair<T,int>& b = make_pair(result.poly[k].first, result.poly[k].second);
+                if(b.second > a.second) {
+                    result.poly[j]= b;
+                    result.poly[k]=a;
+                }
+            }
+        }
 
         for(int n = 0; n < result.poly.size(); ++n) {
             for(int m = n+1; m < result.poly.size(); ++m) {
@@ -118,7 +128,7 @@ public:
     /* The following function "object" is needed for sorting
      * the polynomial terms in descending order of the exponent */
     struct exponent_comparator {
-        bool operator() (const pair<T,int>& a, const pair<T,int>& b) {
+        bool operator () (const pair<T,int>& a, const pair<T,int>& b) {
             return a.second > b.second;
         }
     };
