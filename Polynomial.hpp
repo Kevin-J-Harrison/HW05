@@ -59,6 +59,7 @@ public:
      */
     Polynomial operator* (const Polynomial & other) const {
         Polynomial result;
+        exponent_comparator compare;
         for(int i = 0; i < this->poly.size(); ++i){
             for(int x = 0; x < other.poly.size(); ++x){
                 T first = this->poly[i].first * other.poly[x].first;
@@ -67,13 +68,10 @@ public:
             }
         }
 
-        for(int j = 0; j , result.poly.size(); ++j) {
-            const pair<T,int>& a = make_pair(result.poly[j].first, result.poly[j].second);
+        for(int j = 0; j < result.poly.size(); ++j) {
             for (int k = j + 1; k < result.poly.size(); ++k) {
-                const pair<T,int>& b = make_pair(result.poly[k].first, result.poly[k].second);
-                if(b.second > a.second) {
-                    result.poly[j]= b;
-                    result.poly[k]=a;
+                if(result.poly[j].second < result.poly[k].second) {
+                    result.poly[j].swap(result.poly[k]);
                 }
             }
         }
@@ -104,25 +102,36 @@ public:
 
     /* Return the highest degree in the polynomial */
     int maxDegree() const {
-        /* TODO: return the exponent of the first term (1 line of code) */
-        return 0;
+        return poly[0].second;
     }
 
     /* return the k-th exponent or zero when the polynom has no terms */
     int operator% (int k) {
-        /* TODO: write your code here (around 3-4 lines of code) */
+        if(k < poly.size() && poly.size() != 0)
+            return poly[k].second;
         return 0;
     }
 
     /* return the k-th coefficient, or zero when the polynom is empty */
     T operator[] (int k) const {
-        /* TODO: write your code here (around 3-4 lines of code) */
+        if(k < poly.size() && poly.size() != 0)
+            return poly[k].first;
         return 0;
     }
 
     /* TODO evaluate the polynom at the given value */
     T operator() (T arg) const {
-        return 0;
+        int x = arg;
+        double result;
+        for(int i = 0; i < poly.size(); ++i){
+            if(poly[i].second != 0){
+                result += poly[i].first * pow(x, poly[i].second);
+            }
+            else{
+                result += poly[i].first;
+            }
+        }
+        return result;
     }
 
     /* The following function "object" is needed for sorting
