@@ -95,7 +95,7 @@ public:
      */
     Polynomial operator% (const Polynomial& other) const {
         Polynomial result;
-        /* TODO: write your algorithm here */
+        
 
         return result;
     }
