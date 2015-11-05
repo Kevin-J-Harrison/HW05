@@ -2,16 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:catch.hpp">
-   </FileRef>
-   <FileRef
       location = "group:CMakeLists.txt">
    </FileRef>
    <FileRef
-      location = "group:gvsu_cis.h">
+      location = "group:hw513_main.cpp">
    </FileRef>
    <FileRef
-      location = "group:hw513_main.cpp">
+      location = "group:catch.hpp">
+   </FileRef>
+   <FileRef
+      location = "group:gvsu_cis.h">
    </FileRef>
    <FileRef
       location = "group:Polynomial.hpp">
