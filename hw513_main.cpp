@@ -118,15 +118,15 @@ TEST_CASE ("Multiplication")
             REQUIRE (r1[k] == Approx (r2[k]));
     }
 
-    SECTION ("Compare two techniques") {
-        Polynomial<float> r1, r2;
-        r1 = one * two;
-        r2 = one % two;
-        for (int k = 0; k < 5; k++) {
-            REQUIRE (r1[k] == Approx (r2[k]));
-            REQUIRE (r1 % k == r2 % k);
-        }
-    }
+//    SECTION ("Compare two techniques") {
+//        Polynomial<float> r1, r2;
+//        r1 = one * two;
+//        r2 = one % two;
+//        for (int k = 0; k < 5; k++) {
+//            REQUIRE (r1[k] == Approx (r2[k]));
+//            REQUIRE (r1 % k == r2 % k);
+//        }
+//    }
 }
 
 TEST_CASE ("Large Polynomials") {
