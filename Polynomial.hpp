@@ -68,13 +68,7 @@ public:
             }
         }
 
-        for(int j = 0; j < result.poly.size(); ++j) {
-            for (int k = j + 1; k < result.poly.size(); ++k) {
-                if(result.poly[j].second < result.poly[k].second) {
-                    result.poly[j].swap(result.poly[k]);
-                }
-            }
-        }
+        sort(result.poly.begin(), result.poly.end(), exponent_comparator());
 
         for(int n = 0; n < result.poly.size(); ++n) {
             for(int m = n+1; m < result.poly.size(); ++m) {
@@ -95,18 +89,18 @@ public:
      */
     Polynomial operator% (const Polynomial& other) const {
         Polynomial result;
-        map<int, float>> Polys;
+        map<int, T> Polys;
         
         for(int i = 0; i < this->poly.size(); ++i){
             for(int x = 0; x < other.poly.size(); ++x){
                 float first = this->poly[i].first * other.poly[x].first;
                 int second = this->poly[i].second + other.poly[x].second;
-                Polys.insert(second, first);
+                Polys[second] += first;
             }
         }
-        
-        for(iterator i = Polys.rbegin(); i != Polys.rend(); ++i){
-            result.push_back(make_pair(i.second, i.first));
+
+        for(auto x : Polys){
+            result.poly.push_back(make_pair(x.second, x.first));
         }
       
         return result;
@@ -131,18 +125,17 @@ public:
         return 0;
     }
 
-    /* TODO evaluate the polynom at the given value */
     T operator() (T arg) const {
-        int x = arg;
-        double result;
-        for(int i = 0; i < poly.size(); ++i){
-            if(poly[i].second != 0){
-                result += poly[i].first * pow(x, poly[i].second);
-            }
-            else{
-                result += poly[i].first;
-            }
-        }
+        double result = 0.0;
+         for(auto x: poly){
+             if(x.second != 0){
+                 result += x.first * pow(arg, x.second);
+             }
+             else{
+                 result += x.first;
+             }
+         }
+
         return result;
     }
 
