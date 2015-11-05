@@ -59,25 +59,25 @@ public:
      */
     Polynomial operator* (const Polynomial & other) const {
         Polynomial result;
-//        exponent_comparator compare;
-//        for(int i = 0; i < this->poly.size(); ++i){
-//            for(int x = 0; x < other.poly.size(); ++x){
-//                float first = this->poly[i].first * other.poly[x].first;
-//                int second = this->poly[i].second + other.poly[x].second;
-//                result.poly.push_back(make_pair(first , second));
-//            }
-//        }
-//
-//        sort(result.poly.begin(), result.poly.end(), exponent_comparator());
-//
-//        for(int n = 0; n < result.poly.size(); ++n) {
-//            for(int m = n+1; m < result.poly.size(); ++m) {
-//                if(result.poly[n].second == result.poly[m].second){
-//                    result.poly[n].first += result.poly[m].first;
-//                    result.poly.erase(result.poly.begin() + m);
-//                }
-//            }
-//        }
+        exponent_comparator compare;
+        for(int i = 0; i < this->poly.size(); ++i){
+            for(int x = 0; x < other.poly.size(); ++x){
+                float first = this->poly[i].first * other.poly[x].first;
+                int second = this->poly[i].second + other.poly[x].second;
+                result.poly.push_back(make_pair(first , second));
+            }
+        }
+
+        sort(result.poly.begin(), result.poly.end(), exponent_comparator());
+
+        for(int n = 0; n < result.poly.size(); ++n) {
+            for(int m = n+1; m < result.poly.size(); ++m) {
+                if(result.poly[n].second == result.poly[m].second){
+                    result.poly[n].first += result.poly[m].first;
+                    result.poly.erase(result.poly.begin() + m);
+                }
+            }
+        }
 
         return result;
     }
@@ -89,20 +89,20 @@ public:
      */
     Polynomial operator% (const Polynomial& other) const {
         Polynomial result;
-//        map<int, T> Polys;
+//        map<T, int> Polys;
 //
 //        for(int i = 0; i < this->poly.size(); ++i){
 //            for(int x = 0; x < other.poly.size(); ++x){
-//                float first = this->poly[i].first * other.poly[x].first;
+//                T first = this->poly[i].first * other.poly[x].first;
 //                int second = this->poly[i].second + other.poly[x].second;
 //                Polys[second] += first;
 //            }
 //        }
 //
 //        for(auto x : Polys){
-//            result.poly.push_back(make_pair(x.second, x.first));
+//            result.poly.push_back(make_pair(x.first, x.second));
 //        }
-      
+//
         return result;
     }
 
@@ -128,9 +128,8 @@ public:
     T operator() (T arg) const {
         double result = 0.0;
          for(auto x: poly){
-             result += x.first * pow(arg, x.second);
+             result += pow(arg, x.second) * x.first;
          }
-
         return result;
     }
 
