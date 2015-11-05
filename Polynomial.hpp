@@ -62,7 +62,7 @@ public:
         exponent_comparator compare;
         for(int i = 0; i < this->poly.size(); ++i){
             for(int x = 0; x < other.poly.size(); ++x){
-                T first = this->poly[i].first * other.poly[x].first;
+                float first = this->poly[i].first * other.poly[x].first;
                 int second = this->poly[i].second + other.poly[x].second;
                 result.poly.push_back(make_pair(first , second));
             }
@@ -95,8 +95,20 @@ public:
      */
     Polynomial operator% (const Polynomial& other) const {
         Polynomial result;
-        /* TODO: write your algorithm here */
-
+        map<int, float>> Polys;
+        
+        for(int i = 0; i < this->poly.size(); ++i){
+            for(int x = 0; x < other.poly.size(); ++x){
+                float first = this->poly[i].first * other.poly[x].first;
+                int second = this->poly[i].second + other.poly[x].second;
+                Polys.insert(second, first);
+            }
+        }
+        
+        for(iterator i = Polys.rbegin(); i != Polys.rend(); ++i){
+            result.push_back(make_pair(i.second, i.first));
+        }
+      
         return result;
     }
 
