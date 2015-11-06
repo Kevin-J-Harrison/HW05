@@ -87,20 +87,22 @@ public:
 
     Polynomial operator% (const Polynomial& other) const {
         Polynomial result;
-        map<T, int> Polys;
+        map<int, T> polys;
 
         if(this->poly.size() != 0 && other.poly.size() != 0) {
             for (auto x: this->poly) {
                 for (auto i: other.poly) {
                     T coe = x.first * i.first;
                     int exp = x.second + i.second;
-                    Polys[exp] += coe;
+                    polys[exp] += coe;
                 }
             }
 
-            for (auto x : Polys) {
-                result.poly.push_back(make_pair(x.first, x.second));
+            for (auto x: polys) {
+                result.poly.push_back(make_pair(x.second, x.first));
             }
+
+            sort(result.poly.begin(), result.poly.end(), exponent_comparator());
         }
         else {
             result.poly.push_back(make_pair(0, 0));
@@ -130,9 +132,9 @@ public:
 
     T operator() (T arg) const {
         double result = 0.0;
-         for(auto x: poly){
-             result += pow(arg, x.second) * x.first;
-         }
+        for(auto x: poly){
+            result += pow(arg, x.second) * x.first;
+        }
         return result;
     }
 
